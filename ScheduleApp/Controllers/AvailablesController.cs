@@ -14,6 +14,10 @@ namespace ScheduleApp.Controllers
     {
         private ScheduleAppContext db = new ScheduleAppContext();
 
+        string name = "Bob";
+        int startTime = 8;
+        int endTime = 8;
+
         // GET: Availables
         public ActionResult Index()
         {
@@ -54,6 +58,37 @@ namespace ScheduleApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            return View(available);
+        }
+
+        // Creates available times for a week out
+        // GET: Availables/Create
+        public ActionResult CreateWeek()
+        {
+            return View();
+        }
+
+        // POST: Availables/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateWeek([Bind(Include = "Id,Tutor_Name,Subject,Start_Date,End_Date")] Available available)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    db.Availables.Add(available);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //gets monday of next week
+            var currDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+            while (true)
+            {
+                if (currDate.Day.Equals(DayOfWeek.Friday) && currDate.TimeOfDay.Equals(DateTime.Parse))
+            }
+
 
             return View(available);
         }
