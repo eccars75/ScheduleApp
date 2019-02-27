@@ -10,107 +10,112 @@ using ScheduleApp.Models;
 
 namespace ScheduleApp.Controllers
 {
-    public class TutorSubjectsController : Controller
+    public class SubjectsController : Controller
     {
         private ScheduleAppContext db = new ScheduleAppContext();
 
-        // GET: TutorSubjects
+        // GET: Subjects
         public ActionResult Index()
         {
-            return View(db.TutorSubjects.ToList());
+            var subjects = db.Subjects.Include(s => s.Tutor);
+            return View(subjects.ToList());
         }
 
-        // GET: TutorSubjects/Details/5
+        // GET: Subjects/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TutorSubject tutorSubject = db.TutorSubjects.Find(id);
-            if (tutorSubject == null)
+            Subjects subjects = db.Subjects.Find(id);
+            if (subjects == null)
             {
                 return HttpNotFound();
             }
-            return View(tutorSubject);
+            return View(subjects);
         }
 
-        // GET: TutorSubjects/Create
+        // GET: Subjects/Create
         public ActionResult Create()
         {
+            ViewBag.Tutor_Id = new SelectList(db.Tutors, "Id", "Email");
             return View();
         }
 
-        // POST: TutorSubjects/Create
+        // POST: Subjects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Tutor_Name")] TutorSubject tutorSubject)
+        public ActionResult Create([Bind(Include = "Id,Tutor_Id,subject")] Subjects subjects)
         {
             if (ModelState.IsValid)
             {
-                db.TutorSubjects.Add(tutorSubject);
+                db.Subjects.Add(subjects);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tutorSubject);
+            ViewBag.Tutor_Id = new SelectList(db.Tutors, "Id", "Email", subjects.Tutor_Id);
+            return View(subjects);
         }
 
-        // GET: TutorSubjects/Edit/5
+        // GET: Subjects/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TutorSubject tutorSubject = db.TutorSubjects.Find(id);
-            if (tutorSubject == null)
+            Subjects subjects = db.Subjects.Find(id);
+            if (subjects == null)
             {
                 return HttpNotFound();
             }
-            return View(tutorSubject);
+            ViewBag.Tutor_Id = new SelectList(db.Tutors, "Id", "Email", subjects.Tutor_Id);
+            return View(subjects);
         }
 
-        // POST: TutorSubjects/Edit/5
+        // POST: Subjects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Tutor_Name")] TutorSubject tutorSubject)
+        public ActionResult Edit([Bind(Include = "Id,Tutor_Id,subject")] Subjects subjects)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tutorSubject).State = EntityState.Modified;
+                db.Entry(subjects).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(tutorSubject);
+            ViewBag.Tutor_Id = new SelectList(db.Tutors, "Id", "Email", subjects.Tutor_Id);
+            return View(subjects);
         }
 
-        // GET: TutorSubjects/Delete/5
+        // GET: Subjects/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TutorSubject tutorSubject = db.TutorSubjects.Find(id);
-            if (tutorSubject == null)
+            Subjects subjects = db.Subjects.Find(id);
+            if (subjects == null)
             {
                 return HttpNotFound();
             }
-            return View(tutorSubject);
+            return View(subjects);
         }
 
-        // POST: TutorSubjects/Delete/5
+        // POST: Subjects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TutorSubject tutorSubject = db.TutorSubjects.Find(id);
-            db.TutorSubjects.Remove(tutorSubject);
+            Subjects subjects = db.Subjects.Find(id);
+            db.Subjects.Remove(subjects);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

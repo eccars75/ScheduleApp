@@ -10,131 +10,107 @@ using ScheduleApp.Models;
 
 namespace ScheduleApp.Controllers
 {
-    public class SessionsController : Controller
+    public class TutorsController : Controller
     {
         private ScheduleAppContext db = new ScheduleAppContext();
 
-        // GET: Sessions
+        // GET: Tutors
         public ActionResult Index()
         {
-            return View(db.Sessions.ToList());
+            return View(db.Tutors.ToList());
         }
 
-        // GET: Sessions/Details/5
+        // GET: Tutors/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Session session = db.Sessions.Find(id);
-            if (session == null)
+            Tutor tutor = db.Tutors.Find(id);
+            if (tutor == null)
             {
                 return HttpNotFound();
             }
-            return View(session);
+            return View(tutor);
         }
 
-        // GET: Sessions/Create
+        // GET: Tutors/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Sessions/Create
+        // POST: Tutors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Student_Name,Tutor_Name,Subject,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
+        public ActionResult Create([Bind(Include = "Id,Email,Tutor_Name")] Tutor tutor)
         {
             if (ModelState.IsValid)
             {
-                db.Sessions.Add(session);
+                db.Tutors.Add(tutor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(session);
+            return View(tutor);
         }
 
-        public ActionResult SignUp()
-        {
-            return View();
-        }
-
-        // POST: Sessions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SignUp([Bind(Include = "Id,Student_Name,Tutor_Name,Subject,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
-        {
-            if (ModelState.IsValid)
-            {
-                
-                session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
-                db.Sessions.Add(session);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(session);
-        }
-
-        // GET: Sessions/Edit/5
+        // GET: Tutors/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Session session = db.Sessions.Find(id);
-            if (session == null)
+            Tutor tutor = db.Tutors.Find(id);
+            if (tutor == null)
             {
                 return HttpNotFound();
             }
-            return View(session);
+            return View(tutor);
         }
 
-        // POST: Sessions/Edit/5
+        // POST: Tutors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Student_Name,Tutor_Name,Subject,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
+        public ActionResult Edit([Bind(Include = "Id,Email,Tutor_Name")] Tutor tutor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(session).State = EntityState.Modified;
+                db.Entry(tutor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(session);
+            return View(tutor);
         }
 
-        // GET: Sessions/Delete/5
+        // GET: Tutors/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Session session = db.Sessions.Find(id);
-            if (session == null)
+            Tutor tutor = db.Tutors.Find(id);
+            if (tutor == null)
             {
                 return HttpNotFound();
             }
-            return View(session);
+            return View(tutor);
         }
 
-        // POST: Sessions/Delete/5
+        // POST: Tutors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Session session = db.Sessions.Find(id);
-            db.Sessions.Remove(session);
+            Tutor tutor = db.Tutors.Find(id);
+            db.Tutors.Remove(tutor);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -94,6 +94,12 @@ namespace ScheduleApp.Controllers
             return View(available);
         }
 
+        public ActionResult Subjects()
+        {
+            //List<TutorSubject> tutorSubjects = db.TutorSubjects.ToList<TutorSubject>();
+            return View(/*tutorSubjects*/);
+        }
+
         // GET: Availables/Edit/5
         public ActionResult Edit(int? id)
         {

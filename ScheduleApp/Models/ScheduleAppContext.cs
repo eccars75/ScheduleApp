@@ -23,6 +23,10 @@ namespace ScheduleApp.Models
 
         public System.Data.Entity.DbSet<ScheduleApp.Models.Session> Sessions { get; set; }
 
-        public System.Data.Entity.DbSet<ScheduleApp.Models.TutorSubject> TutorSubjects { get; set; }
+        public System.Data.Entity.DbSet<ScheduleApp.Models.Subjects> Subjects { get; set; }
+
+        public System.Data.Entity.DbSet<ScheduleApp.Models.Tutor> Tutors { get; set; }
+
+        //public System.Data.Entity.DbSet<ScheduleApp.Models.TutorSubject> TutorSubjects { get; set; }
     }
 }

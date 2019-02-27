@@ -23,7 +23,9 @@ namespace ScheduleApp.Models
         //public virtual ApplicationUser Tutor { get; set; }
 
         public string Subject { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Start_Date { get; set; }
+        [DataType(DataType.Date)]
         public DateTime End_Date { get; set; }
         public bool Completed { get; set; }
         public bool NoShow { get; set; }

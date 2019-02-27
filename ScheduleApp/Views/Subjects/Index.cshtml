@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ScheduleApp.Models.TutorSubject>
+﻿@model IEnumerable<ScheduleApp.Models.Subjects>
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Tutor_Name)
+            @Html.DisplayNameFor(model => model.Tutor.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subject)
         </th>
         <th></th>
     </tr>
@@ -20,7 +23,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Tutor_Name)
+            @Html.DisplayFor(modelItem => item.Tutor.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.subject)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
