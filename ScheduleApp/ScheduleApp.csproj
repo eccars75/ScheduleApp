@@ -277,6 +277,7 @@
     <Content Include="Views\TutorSubjects\Edit.cshtml" />
     <Content Include="Views\TutorSubjects\Index.cshtml" />
     <Content Include="Views\Availables\CreateWeek.cshtml" />
+    <Content Include="Views\Sessions\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

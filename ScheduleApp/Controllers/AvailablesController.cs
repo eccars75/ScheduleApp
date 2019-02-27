@@ -82,12 +82,13 @@ namespace ScheduleApp.Controllers
             //    db.SaveChanges();
             //    return RedirectToAction("Index");
             //}
+            
             //gets monday of next week
-            var currDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
-            while (true)
-            {
-                if (currDate.Day.Equals(DayOfWeek.Friday) && currDate.TimeOfDay.Equals(DateTime.Parse))
-            }
+            //var currDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+            //while (true)
+            //{
+            //    if (currDate.Day.Equals(DayOfWeek.Friday) && currDate.TimeOfDay.Equals(DateTime.Parse))
+            //}
 
 
             return View(available);

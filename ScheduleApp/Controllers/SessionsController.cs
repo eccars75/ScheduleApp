@@ -58,6 +58,30 @@ namespace ScheduleApp.Controllers
             return View(session);
         }
 
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+
+        // POST: Sessions/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUp([Bind(Include = "Id,Student_Name,Tutor_Name,Subject,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
+        {
+            if (ModelState.IsValid)
+            {
+                //TODO: have this grab ApplicationUser.FirstName instead. see IdentityModel.cs
+                session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
+                db.Sessions.Add(session);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(session);
+        }
+
         // GET: Sessions/Edit/5
         public ActionResult Edit(int? id)
         {
