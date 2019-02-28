@@ -9,6 +9,7 @@ namespace ScheduleApp.Models
 {
     public class Available
     {
+        //!!!!prob not going to be used
         public int Id{ get; set; }
 
         public string Tutor_Name { get; set; }

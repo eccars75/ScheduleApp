@@ -16,6 +16,6 @@ namespace ScheduleApp.Models
         [ForeignKey("Tutor_Id")]
         public virtual Tutor Tutor { get; set; }
 
-        public string subject { get; set; }
+        public string Subject { get; set; }
     }
 }

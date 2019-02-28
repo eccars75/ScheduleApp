@@ -9,15 +9,11 @@ namespace ScheduleApp.Models
 {
     public class Tutor
     {
-        [Key]
         public int Id { get; set; }
 
         public string Email { get; set; }
+        [Display(Name = "Tutor's Name")]
         public string Tutor_Name { get; set; }
-        //string Tutor_Id { get; set; }
-        //[ForeignKey("Tutor_Id")]
-        //public virtual ApplicationUser Tutor { get; set; }
-        //todo: create separate model for just subjects
-        //public string Subjects{ get; set; }
+
     }
 }

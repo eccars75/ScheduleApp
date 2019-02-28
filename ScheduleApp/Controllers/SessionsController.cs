@@ -17,7 +17,8 @@ namespace ScheduleApp.Controllers
         // GET: Sessions
         public ActionResult Index()
         {
-            return View(db.Sessions.ToList());
+            var sessions = db.Sessions.Include(s => s.Subjects);
+            return View(sessions.ToList());
         }
 
         // GET: Sessions/Details/5
@@ -38,6 +39,7 @@ namespace ScheduleApp.Controllers
         // GET: Sessions/Create
         public ActionResult Create()
         {
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Student_Name,Tutor_Name,Subject,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
+        public ActionResult Create([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
             if (ModelState.IsValid)
             {
@@ -55,30 +57,7 @@ namespace ScheduleApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(session);
-        }
-
-        public ActionResult SignUp()
-        {
-            return View();
-        }
-
-        // POST: Sessions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SignUp([Bind(Include = "Id,Student_Name,Tutor_Name,Subject,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
-        {
-            if (ModelState.IsValid)
-            {
-                
-                session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
-                db.Sessions.Add(session);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return View(session);
         }
 
@@ -94,6 +73,7 @@ namespace ScheduleApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return View(session);
         }
 
@@ -102,7 +82,7 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Student_Name,Tutor_Name,Subject,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
+        public ActionResult Edit([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
             if (ModelState.IsValid)
             {
@@ -110,6 +90,7 @@ namespace ScheduleApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return View(session);
         }
 
@@ -146,6 +127,31 @@ namespace ScheduleApp.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult SignUp()
+        {
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject");
+            return View();
+        }
+
+        // POST: Sessions/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUp([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
+        {
+            if (ModelState.IsValid)
+            {
+
+                session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
+                db.Sessions.Add(session);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
+            return View(session);
         }
     }
 }
