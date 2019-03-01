@@ -17,5 +17,7 @@ namespace ScheduleApp.Models
         public virtual Tutor Tutor { get; set; }
 
         public string Subject { get; set; }
+        [NotMapped]
+        public string TutorName { get { return Tutor.Tutor_Name + "-" + Subject; } }
     }
 }

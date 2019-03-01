@@ -131,7 +131,7 @@ namespace ScheduleApp.Controllers
 
         public ActionResult SignUp()
         {
-            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject");
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "TutorName");
             return View();
         }
 
