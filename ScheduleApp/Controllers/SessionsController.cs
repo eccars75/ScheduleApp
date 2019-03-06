@@ -37,6 +37,7 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Sessions/Create
+        //[Authorize]
         public ActionResult Create()
         {
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject");
@@ -48,6 +49,7 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize]
         public ActionResult Create([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
             if (ModelState.IsValid)
@@ -62,6 +64,7 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Sessions/Edit/5
+        //[Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +85,7 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize]
         public ActionResult Edit([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
             if (ModelState.IsValid)
@@ -95,6 +99,7 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Sessions/Delete/5
+        //[Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +117,7 @@ namespace ScheduleApp.Controllers
         // POST: Sessions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        //[Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Session session = db.Sessions.Find(id);
@@ -129,6 +135,7 @@ namespace ScheduleApp.Controllers
             base.Dispose(disposing);
         }
 
+        //[Authorize]
         public ActionResult SignUp()
         {
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "TutorName");
@@ -140,6 +147,7 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize]
         public ActionResult SignUp([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
             if (ModelState.IsValid)

@@ -5,15 +5,14 @@ namespace ScheduleApp.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ScheduleApp.Models.ScheduleAppContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ScheduleApp.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "ScheduleApp.Models.ScheduleAppContext";
         }
 
-        protected override void Seed(ScheduleApp.Models.ScheduleAppContext context)
+        protected override void Seed(ScheduleApp.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

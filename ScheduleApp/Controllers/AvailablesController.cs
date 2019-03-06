@@ -14,10 +14,6 @@ namespace ScheduleApp.Controllers
     {
         private ScheduleAppContext db = new ScheduleAppContext();
 
-        string name = "Bob";
-        int startTime = 8;
-        int endTime = 8;
-
         // GET: Availables
         public ActionResult Index()
         {

@@ -37,6 +37,7 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Subjects/Create
+        //[Authorize]
         public ActionResult Create()
         {
             ViewBag.Tutor_Id = new SelectList(db.Tutors, "Id", "Email");
@@ -48,6 +49,7 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize]
         public ActionResult Create([Bind(Include = "Id,Tutor_Id,subject")] Subjects subjects)
         {
             if (ModelState.IsValid)
@@ -62,6 +64,7 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Subjects/Edit/5
+        //[Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +85,7 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize]
         public ActionResult Edit([Bind(Include = "Id,Tutor_Id,subject")] Subjects subjects)
         {
             if (ModelState.IsValid)
@@ -95,6 +99,7 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Subjects/Delete/5
+        //[Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +117,7 @@ namespace ScheduleApp.Controllers
         // POST: Subjects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        //[Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Subjects subjects = db.Subjects.Find(id);

@@ -16,12 +16,12 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
-            @Html.LabelFor(model => model.Student_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Student_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Student_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                @Html.LabelFor(model => model.Student_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Student_Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Student_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Subject_Id, "Subject_Id", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -33,48 +33,48 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-10 input-group date" >
+                @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control",@id = "datetimepicker4" } })
                 @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
             </div>
         </div>
         @* put calendar here *@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.Completed, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Completed)
-                    @Html.ValidationMessageFor(model => model.Completed, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Completed, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Completed)
+                        @Html.ValidationMessageFor(model => model.Completed, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NoShow, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.NoShow)
-                    @Html.ValidationMessageFor(model => model.NoShow, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NoShow, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.NoShow)
+                        @Html.ValidationMessageFor(model => model.NoShow, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -87,9 +87,14 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
+<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker();
+            });
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-@* TODO: validate dates: cant be a previous date
-    validate: no matching*@
+   
+    @* TODO: validate dates: cant be a previous date
+        validate: no matching*@
 }
