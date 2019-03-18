@@ -156,12 +156,13 @@ namespace ScheduleApp.Controllers
                 session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
                 db.Sessions.Add(session);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SignUp");
             }
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return View(session);
         }
 
+        //!!!!test this!!!!
         //for tutors to see upcoming sessions
         public ActionResult TutorsUpcoming()
         {
@@ -172,31 +173,33 @@ namespace ScheduleApp.Controllers
             return View();
         }
 
-        // POST: Sessions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult TutorsUpcoming([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
+        //update session
+        public ActionResult TutorsUpdateSession(Session session, bool isNoShow)
         {
             if (ModelState.IsValid)
             {
-
-                session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
-                db.Sessions.Add(session);
+                session.NoShow = isNoShow;
+                session.Completed = true;
+                session.End_Date = DateTime.Now;
+                db.Entry(session).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("TutorsUpcoming");
             }
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return View(session);
         }
 
-        public FileContentResult DownloadCSV()
+        //download csv for sessions model
+        public FileContentResult DownloadSessionsCSV()
         {
-            //This GetAllData method will fetch data from server and create a comma seperate string.
-            //var data = GetAllData();
-            var bytes = UnicodeEncoding.Unicode.GetBytes(data);
-            return File(bytes, "text/csv");
+            var qry = from data in db.Sessions
+                      select data;
+            string csv = string.Concat(
+             qry.Select(
+                    session => string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}\n", session.Id, session.Student_Name, session.Subjects.Subject, session.Subjects.TutorName, session.Start_Date, session.End_Date, session.Completed, session.NoShow, session.Rating)));
+            return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", "SessionsReport.csv");
         }
+
+        //place one for the subjects model?
     }
 }
