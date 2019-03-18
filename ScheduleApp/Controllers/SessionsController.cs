@@ -161,5 +161,42 @@ namespace ScheduleApp.Controllers
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return View(session);
         }
+
+        //for tutors to see upcoming sessions
+        public ActionResult TutorsUpcoming()
+        {
+            var qry = (from ses in db.Sessions
+                       where ses.Subjects.Tutor.ToString() == User.Identity.Name && ses.Completed == false
+                       select ses).ToList();
+            ViewBag.Subject_Id = new SelectList(qry, "Id", "Subject");
+            return View();
+        }
+
+        // POST: Sessions/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TutorsUpcoming([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
+        {
+            if (ModelState.IsValid)
+            {
+
+                session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
+                db.Sessions.Add(session);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
+            return View(session);
+        }
+
+        public FileContentResult DownloadCSV()
+        {
+            //This GetAllData method will fetch data from server and create a comma seperate string.
+            //var data = GetAllData();
+            var bytes = UnicodeEncoding.Unicode.GetBytes(data);
+            return File(bytes, "text/csv");
+        }
     }
 }
