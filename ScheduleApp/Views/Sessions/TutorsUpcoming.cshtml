@@ -59,8 +59,8 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.ActionLink("Session Completed", "TutorsUpdateSession", new { item, isNoShow = false }, null)
-            @Html.ActionLink("Person No Showed", "TutorsUpdateSession", new { item, isNoShow = true }, null)
+            @Html.ActionLink("Session Completed", "TutorsUpdateSession", new { item.Id, isNoShow = false }, null)
+            @Html.ActionLink("Person No Showed", "TutorsUpdateSession", new { item.Id, isNoShow = true }, null)
         </td>
     </tr>
 }

@@ -167,16 +167,17 @@ namespace ScheduleApp.Controllers
         public ActionResult TutorsUpcoming()
         {
             var qry = (from ses in db.Sessions
-                       where ses.Subjects.Tutor.ToString() == User.Identity.Name && ses.Completed == false
+                       where ses.Subjects.Tutor.Email.ToString() == User.Identity.Name && ses.Completed == false
                        select ses).ToList();
             ViewBag.Subject_Id = new SelectList(qry, "Id", "Subject");
-            return View();
+            return View(qry);
         }
 
         //update session
-        public ActionResult TutorsUpdateSession(Session session, bool isNoShow)
+        public ActionResult TutorsUpdateSession(int id, bool isNoShow)
         {
-            if (ModelState.IsValid)
+            ScheduleApp.Models.Session session = db.Sessions.Find(id);
+            if (session != null)
             {
                 session.NoShow = isNoShow;
                 session.Completed = true;
@@ -186,17 +187,19 @@ namespace ScheduleApp.Controllers
                 return RedirectToAction("TutorsUpcoming");
             }
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
-            return View(session);
+            return RedirectToAction("TutorsUpcoming");
         }
 
+        public ActionResult Download ()
+        { return View(); }
         //download csv for sessions model
         public FileContentResult DownloadSessionsCSV()
         {
-            var qry = from data in db.Sessions
-                      select data;
+            var qry = (from data in db.Sessions
+                      select data).AsEnumerable();
             string csv = string.Concat(
              qry.Select(
-                    session => string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}\n", session.Id, session.Student_Name, session.Subjects.Subject, session.Subjects.TutorName, session.Start_Date, session.End_Date, session.Completed, session.NoShow, session.Rating)));
+                    session => string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}\n", session.Id, session.Student_Name, session.Subjects.Subject, session.Subjects.Tutor.Tutor_Name, session.Start_Date, session.End_Date, session.Completed, session.NoShow, session.Rating)));
             return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", "SessionsReport.csv");
         }
 
