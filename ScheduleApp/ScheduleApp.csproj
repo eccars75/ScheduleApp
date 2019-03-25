@@ -168,6 +168,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TutorSchedulesController.cs" />
     <Compile Include="Migrations\201902271319525_mig1.cs" />
     <Compile Include="Migrations\201902271754126_mig2.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -214,9 +215,14 @@
     <Compile Include="Migrations\201903061710530_mig7.Designer.cs">
       <DependentUpon>201903061710530_mig7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903251633132_mig3251912301.cs" />
+    <Compile Include="Migrations\201903251633132_mig3251912301.Designer.cs">
+      <DependentUpon>201903251633132_mig3251912301.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AvailableModel.cs" />
+    <Compile Include="Models\TutorScheduleModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ScheduleAppContext.cs" />
@@ -313,6 +319,11 @@
     <Content Include="Views\Tutors\Index.cshtml" />
     <Content Include="Views\Sessions\TutorsUpcoming.cshtml" />
     <Content Include="Views\Sessions\Download.cshtml" />
+    <Content Include="Views\TutorSchedules\Create.cshtml" />
+    <Content Include="Views\TutorSchedules\Delete.cshtml" />
+    <Content Include="Views\TutorSchedules\Details.cshtml" />
+    <Content Include="Views\TutorSchedules\Edit.cshtml" />
+    <Content Include="Views\TutorSchedules\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -352,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903061710530_mig7.resx">
       <DependentUpon>201903061710530_mig7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903251633132_mig3251912301.resx">
+      <DependentUpon>201903251633132_mig3251912301.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

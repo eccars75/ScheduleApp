@@ -39,5 +39,9 @@ namespace ScheduleApp.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<ScheduleApp.Models.TutorSchedule> TutorSchedules { get; set; }
+
+        public System.Data.Entity.DbSet<ScheduleApp.Models.Tutor> Tutors { get; set; }
     }
 }
