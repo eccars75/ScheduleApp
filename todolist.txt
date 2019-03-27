@@ -1,3 +1,7 @@
 -set up roles (user and admin, tutor can be retrieved from the model)
 -The student will receive a notification through email if their time has changed
--set up tutor scheduler ( i guess thats done)
+-add validation 
+-navigation
+
+Low
+-remove availables
