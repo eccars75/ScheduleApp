@@ -169,8 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\TutorSchedulesController.cs" />
-    <Compile Include="Migrations\201902271319525_mig1.cs" />
-    <Compile Include="Migrations\201902271754126_mig2.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -183,41 +181,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902092233148_InitialCreate.cs" />
-    <Compile Include="Migrations\201902092233148_InitialCreate.Designer.cs">
-      <DependentUpon>201902092233148_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201903201553288_InitialCreate.cs" />
+    <Compile Include="Migrations\201903201553288_InitialCreate.Designer.cs">
+      <DependentUpon>201903201553288_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902160045066_mg1.cs" />
-    <Compile Include="Migrations\201902160045066_mg1.Designer.cs">
-      <DependentUpon>201902160045066_mg1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902160049103_mg2.cs" />
-    <Compile Include="Migrations\201902160049103_mg2.Designer.cs">
-      <DependentUpon>201902160049103_mg2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902272251530_mig3.cs" />
-    <Compile Include="Migrations\201902272251530_mig3.Designer.cs">
-      <DependentUpon>201902272251530_mig3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902272329227_mig4.cs" />
-    <Compile Include="Migrations\201902272329227_mig4.Designer.cs">
-      <DependentUpon>201902272329227_mig4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902272330154_mig5.cs" />
-    <Compile Include="Migrations\201902272330154_mig5.Designer.cs">
-      <DependentUpon>201902272330154_mig5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902272357069_mig6.cs" />
-    <Compile Include="Migrations\201902272357069_mig6.Designer.cs">
-      <DependentUpon>201902272357069_mig6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903061710530_mig7.cs" />
-    <Compile Include="Migrations\201903061710530_mig7.Designer.cs">
-      <DependentUpon>201903061710530_mig7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903251633132_mig3251912301.cs" />
-    <Compile Include="Migrations\201903251633132_mig3251912301.Designer.cs">
-      <DependentUpon>201903251633132_mig3251912301.cs</DependentUpon>
+    <Compile Include="Migrations\201903271632044_mig32720191228.cs" />
+    <Compile Include="Migrations\201903271632044_mig32720191228.Designer.cs">
+      <DependentUpon>201903271632044_mig32720191228.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -325,7 +295,14 @@
     <Content Include="Views\TutorSchedules\Edit.cshtml" />
     <Content Include="Views\TutorSchedules\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903201553288_InitialCreate.resx">
+      <DependentUpon>201903201553288_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903271632044_mig32720191228.resx">
+      <DependentUpon>201903271632044_mig32720191228.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -338,35 +315,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902092233148_InitialCreate.resx">
-      <DependentUpon>201902092233148_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902160045066_mg1.resx">
-      <DependentUpon>201902160045066_mg1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902160049103_mg2.resx">
-      <DependentUpon>201902160049103_mg2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902272251530_mig3.resx">
-      <DependentUpon>201902272251530_mig3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902272329227_mig4.resx">
-      <DependentUpon>201902272329227_mig4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902272330154_mig5.resx">
-      <DependentUpon>201902272330154_mig5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902272357069_mig6.resx">
-      <DependentUpon>201902272357069_mig6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903061710530_mig7.resx">
-      <DependentUpon>201903061710530_mig7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903251633132_mig3251912301.resx">
-      <DependentUpon>201903251633132_mig3251912301.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

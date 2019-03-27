@@ -162,7 +162,6 @@ namespace ScheduleApp.Controllers
             return View(session);
         }
 
-        //!!!!test this!!!!
         //for tutors to see upcoming sessions
         public ActionResult TutorsUpcoming()
         {
@@ -192,6 +191,7 @@ namespace ScheduleApp.Controllers
 
         public ActionResult Download ()
         { return View(); }
+
         //download csv for sessions model
         public FileContentResult DownloadSessionsCSV()
         {
@@ -203,6 +203,9 @@ namespace ScheduleApp.Controllers
             return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", "SessionsReport.csv");
         }
 
-        //place one for the subjects model?
+        public void SendEmail(Session session)
+        {
+            //sess
+        }
     }
 }
