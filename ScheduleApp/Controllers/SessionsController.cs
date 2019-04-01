@@ -206,7 +206,7 @@ namespace ScheduleApp.Controllers
             return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", "SessionsReport.csv");
         }
 
-        //sends email, thomas more email service seems to block, tested with non thomas more email account
+        //sends email, thomas more email service seems to send on a delay, tested with non thomas more email account
         public void SendEmail(Session session)
         {
             try
