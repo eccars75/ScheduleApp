@@ -26,5 +26,15 @@ namespace ScheduleApp.Controllers
 
             return View();
         }
+
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
+        public ActionResult Tutor()
+        {
+            return View();
+        }
     }
 }
