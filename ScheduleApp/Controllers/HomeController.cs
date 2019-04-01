@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScheduleApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,30 @@ namespace ScheduleApp.Controllers
 {
     public class HomeController : Controller
     {
+        private ScheduleAppContext db = new ScheduleAppContext();
+
         public ActionResult Index()
         {
+            try
+            {
+                var qry = (from ses in db.Tutors
+                           where ses.Email == User.Identity.Name
+                           select ses).ToList();
+
+                if (qry.Any())
+                {
+                    ViewBag.IsTutor = true;
+                }
+                else
+                {
+                    ViewBag.IsTutor = false;
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.IsTutor = false;
+            }
+
             return View();
         }
 
@@ -28,11 +51,6 @@ namespace ScheduleApp.Controllers
         }
 
         public ActionResult Admin()
-        {
-            return View();
-        }
-
-        public ActionResult Tutor()
         {
             return View();
         }

@@ -12,7 +12,7 @@ namespace ScheduleApp.Controllers
 {
     public class TutorSchedulesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ScheduleAppContext db = new ScheduleAppContext();
 
         // GET: TutorSchedules
         public ActionResult Index()

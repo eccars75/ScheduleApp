@@ -102,8 +102,9 @@ namespace ScheduleApp.Controllers
 
         // GET: Sessions/Delete/5
         //[Authorize]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, char whoDelete)
         {
+            ViewBag.WhoDelete = whoDelete;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -163,6 +164,16 @@ namespace ScheduleApp.Controllers
             }
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return View(session);
+        }
+
+        //for users to see upcoming sessions
+        public ActionResult UsersUpcoming()
+        {
+            var qry = (from ses in db.Sessions
+                       where ses.Student_Name == User.Identity.Name && ses.Completed == false
+                       select ses).ToList();
+            ViewBag.Subject_Id = new SelectList(qry, "Id", "Subject");
+            return View(qry);
         }
 
         //for tutors to see upcoming sessions
@@ -226,9 +237,9 @@ namespace ScheduleApp.Controllers
                     var credential = new NetworkCredential
                     {
                         UserName = "thomasmoretutoring@gmail.com",
-                        Password = "!!changeThis"
+                        Password = "!!changeThis!!"
                         //UserName = WebConfigurationManager.AppSettings["thomasmoretutoring@gmail.com"],
-                        //Password = WebConfigurationManager.AppSettings["Nope nice try"]
+                        //Password = WebConfigurationManager.AppSettings["your password goes here"]
                     };
 
                     //smtp.UseDefaultCredentials = false;
@@ -239,10 +250,7 @@ namespace ScheduleApp.Controllers
                     smtp.Send(message);
                 }
             }
-            catch (Exception e)
-            {
-                //
-            }
+            catch (Exception e) {}
         }
     }
 }

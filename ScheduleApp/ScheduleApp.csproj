@@ -168,6 +168,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\TutorSchedulesController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -188,6 +189,10 @@
     <Compile Include="Migrations\201903271632044_mig32720191228.cs" />
     <Compile Include="Migrations\201903271632044_mig32720191228.Designer.cs">
       <DependentUpon>201903271632044_mig32720191228.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904012337300_mig4120191936.cs" />
+    <Compile Include="Migrations\201904012337300_mig4120191936.Designer.cs">
+      <DependentUpon>201904012337300_mig4120191936.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -295,6 +300,12 @@
     <Content Include="Views\TutorSchedules\Details.cshtml" />
     <Content Include="Views\TutorSchedules\Edit.cshtml" />
     <Content Include="Views\TutorSchedules\Index.cshtml" />
+    <Content Include="Views\Sessions\UsersUpcoming.cshtml" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903201553288_InitialCreate.resx">
@@ -302,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903271632044_mig32720191228.resx">
       <DependentUpon>201903271632044_mig32720191228.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904012337300_mig4120191936.resx">
+      <DependentUpon>201904012337300_mig4120191936.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

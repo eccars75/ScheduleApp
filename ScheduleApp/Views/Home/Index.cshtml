@@ -13,3 +13,15 @@
         @Html.ActionLink("Sign Up for Appointment", "SignUp", "Sessions")
     </div>
 </div>
+
+@{
+    if (ViewBag.IsTutor == true)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <p>For Tutors</p>
+                @Html.ActionLink("Check Upcoming Tutoring Sessions", "TutorsUpcoming", "Sessions")
+            </div>
+        </div>
+    }
+}

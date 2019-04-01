@@ -29,6 +29,8 @@ namespace ScheduleApp.Models
 
         public System.Data.Entity.DbSet<ScheduleApp.Models.TutorSchedule> TutorSchedules { get; set; }
 
+        public System.Data.Entity.DbSet<ScheduleApp.Models.Admin> Admins { get; set; }
+
         //public System.Data.Entity.DbSet<ScheduleApp.Models.TutorSubject> TutorSubjects { get; set; }
     }
 }
