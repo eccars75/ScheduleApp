@@ -4,7 +4,9 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using ScheduleApp.Models;
 
@@ -121,6 +123,7 @@ namespace ScheduleApp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Session session = db.Sessions.Find(id);
+            SendEmail(session);
             db.Sessions.Remove(session);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -203,9 +206,43 @@ namespace ScheduleApp.Controllers
             return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", "SessionsReport.csv");
         }
 
+        //sends email, thomas more email service seems to block, tested with non thomas more email account
         public void SendEmail(Session session)
         {
-            //sess
+            try
+            {
+                //string emailTo = session.Student_Name;
+                var body = @"I'm sorry but your current appointment scheduled for " + session.Start_Date + " has been cancelled. Please reschedule at website here.<br>Thomas More Tutoring Center";
+
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(session.Student_Name));
+                message.From = new MailAddress("thomasmoretutoring@gmail.com");
+                message.Subject = "Your appointment has been cancelled";
+                message.Body = string.Format(body);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "thomasmoretutoring@gmail.com",
+                        Password = "!!changeThis"
+                        //UserName = WebConfigurationManager.AppSettings["thomasmoretutoring@gmail.com"],
+                        //Password = WebConfigurationManager.AppSettings["Nope nice try"]
+                    };
+
+                    //smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.Send(message);
+                }
+            }
+            catch (Exception e)
+            {
+                //
+            }
         }
     }
 }
