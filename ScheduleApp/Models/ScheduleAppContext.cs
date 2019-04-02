@@ -19,8 +19,6 @@ namespace ScheduleApp.Models
         {
         }
 
-        public System.Data.Entity.DbSet<ScheduleApp.Models.Available> Availables { get; set; }
-
         public System.Data.Entity.DbSet<ScheduleApp.Models.Session> Sessions { get; set; }
 
         public System.Data.Entity.DbSet<ScheduleApp.Models.Subjects> Subjects { get; set; }
@@ -30,7 +28,5 @@ namespace ScheduleApp.Models
         public System.Data.Entity.DbSet<ScheduleApp.Models.TutorSchedule> TutorSchedules { get; set; }
 
         public System.Data.Entity.DbSet<ScheduleApp.Models.Admin> Admins { get; set; }
-
-        //public System.Data.Entity.DbSet<ScheduleApp.Models.TutorSubject> TutorSubjects { get; set; }
     }
 }

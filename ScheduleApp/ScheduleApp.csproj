@@ -194,10 +194,13 @@
     <Compile Include="Migrations\201904012337300_mig4120191936.Designer.cs">
       <DependentUpon>201904012337300_mig4120191936.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904021543266_mig4220191141.cs" />
+    <Compile Include="Migrations\201904021543266_mig4220191141.Designer.cs">
+      <DependentUpon>201904021543266_mig4220191141.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminModel.cs" />
-    <Compile Include="Models\AvailableModel.cs" />
     <Compile Include="Models\TutorScheduleModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -205,7 +208,6 @@
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Controllers\AvailablesController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Models\SubjectsModel.cs" />
     <Compile Include="Models\TutorModel.cs" />
@@ -271,17 +273,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Availables\Create.cshtml" />
-    <Content Include="Views\Availables\Delete.cshtml" />
-    <Content Include="Views\Availables\Details.cshtml" />
-    <Content Include="Views\Availables\Edit.cshtml" />
-    <Content Include="Views\Availables\Index.cshtml" />
     <Content Include="Views\Sessions\Create.cshtml" />
     <Content Include="Views\Sessions\Delete.cshtml" />
     <Content Include="Views\Sessions\Details.cshtml" />
     <Content Include="Views\Sessions\Edit.cshtml" />
     <Content Include="Views\Sessions\Index.cshtml" />
-    <Content Include="Views\Availables\CreateWeek.cshtml" />
     <Content Include="Views\Sessions\SignUp.cshtml" />
     <Content Include="Views\Subjects\Create.cshtml" />
     <Content Include="Views\Subjects\Delete.cshtml" />
@@ -317,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904012337300_mig4120191936.resx">
       <DependentUpon>201904012337300_mig4120191936.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904021543266_mig4220191141.resx">
+      <DependentUpon>201904021543266_mig4220191141.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
