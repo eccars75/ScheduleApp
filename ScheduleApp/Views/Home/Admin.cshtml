@@ -6,6 +6,11 @@
 <h2>Admin</h2>
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Sign Up for Appointment", "SignUp", "Sessions")
+        @Html.ActionLink("Manage Sessions", "Index", "Sessions")<br />
+        @Html.ActionLink("Manage Tutors", "Index", "Tutors")<br />
+        @Html.ActionLink("Manage Tutor Schedules", "Index", "TutorSchedules")<br />
+        @Html.ActionLink("Manage Subjects", "Index", "Subjects")<br />
+        @Html.ActionLink("Manage Admins", "Index", "Admins")<br />
+        @Html.ActionLink("Download Session Data", "DownloadSessionsCSV", "Sessions")
     </div>
 </div>

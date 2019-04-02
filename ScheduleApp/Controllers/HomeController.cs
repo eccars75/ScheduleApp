@@ -52,7 +52,14 @@ namespace ScheduleApp.Controllers
 
         public ActionResult Admin()
         {
-            return View();
+            var qry = (from ses in db.Admins
+                       where ses.Email == User.Identity.Name
+                       select ses).ToList();
+
+            if (qry.Any())
+                return View();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
