@@ -17,7 +17,14 @@ namespace ScheduleApp.Controllers
         // GET: Admins
         public ActionResult Index()
         {
-            return View(db.Admins.ToList());
+            var qry = (from ses in db.Admins
+                       where ses.Email == User.Identity.Name
+                       select ses).ToList();
+            if (qry.Any())
+            {
+                return View(db.Admins.ToList());
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Admins/Details/5
@@ -38,7 +45,14 @@ namespace ScheduleApp.Controllers
         // GET: Admins/Create
         public ActionResult Create()
         {
-            return View();
+            var qry = (from ses in db.Admins
+                       where ses.Email == User.Identity.Name
+                       select ses).ToList();
+            if (qry.Any())
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Admins/Create

@@ -15,12 +15,22 @@ namespace ScheduleApp.Controllers
     public class SessionsController : Controller
     {
         private ScheduleAppContext db = new ScheduleAppContext();
+        private char whoDelete = 'a';
 
         // GET: Sessions
+        [Authorize]
         public ActionResult Index()
         {
-            var sessions = db.Sessions.Include(s => s.Subjects);
-            return View(sessions.ToList());
+            var qry = (from ses in db.Admins
+                       where ses.Email == User.Identity.Name
+                       select ses).ToList();
+
+            if (qry.Any())
+            {
+                var sessions = db.Sessions.Include(s => s.Subjects);
+                return View(sessions.ToList()); 
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Sessions/Details/5
@@ -39,11 +49,18 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Sessions/Create
-        //[Authorize]
+        [Authorize]
         public ActionResult Create()
         {
-            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject");
-            return View();
+            var qry = (from ses in db.Admins
+                       where ses.Email == User.Identity.Name
+                       select ses).ToList();
+            if (qry.Any())
+            {
+                ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject");
+                return View(); 
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Sessions/Create
@@ -51,7 +68,6 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize]
         public ActionResult Create([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
             if (ModelState.IsValid)
@@ -66,7 +82,6 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Sessions/Edit/5
-        //[Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,7 +102,6 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize]
         public ActionResult Edit([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
             if (ModelState.IsValid)
@@ -101,10 +115,10 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Sessions/Delete/5
-        //[Authorize]
-        public ActionResult Delete(int? id, char whoDelete)
+        public ActionResult Delete(int? id, char whoDel)
         {
-            ViewBag.WhoDelete = whoDelete;
+            ViewBag.WhoDelete = whoDel;
+            whoDelete = whoDel;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -120,11 +134,14 @@ namespace ScheduleApp.Controllers
         // POST: Sessions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        //[Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Session session = db.Sessions.Find(id);
-            SendEmail(session);
+            if (whoDelete == 'u')
+            {
+                SendEmail(session); 
+            }
+            whoDelete = 'a';
             db.Sessions.Remove(session);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -139,7 +156,7 @@ namespace ScheduleApp.Controllers
             base.Dispose(disposing);
         }
 
-        //[Authorize]
+        [Authorize]
         public ActionResult SignUp()
         {
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "TutorName");
@@ -151,12 +168,10 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize]
         public ActionResult SignUp([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
             if (ModelState.IsValid)
             {
-
                 session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
                 db.Sessions.Add(session);
                 db.SaveChanges();
@@ -167,6 +182,7 @@ namespace ScheduleApp.Controllers
         }
 
         //for users to see upcoming sessions
+        [Authorize]
         public ActionResult UsersUpcoming()
         {
             var qry = (from ses in db.Sessions
@@ -177,6 +193,7 @@ namespace ScheduleApp.Controllers
         }
 
         //for tutors to see upcoming sessions
+        [Authorize]
         public ActionResult TutorsUpcoming()
         {
             var qry = (from ses in db.Sessions

@@ -27,25 +27,24 @@
             @Html.DisplayFor(model => model.Student_Name)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.End_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.End_Date)
+        </dd>
         @{
-            if (ViewBag.WhoDeleted = 'a')
+            if (ViewBag.WhoDeleted == 'a')
             {
-                <dt>
-                    @Html.DisplayNameFor(model => model.Start_Date)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Start_Date)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.End_Date)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.End_Date)
-                </dd>
-
                 <dt>
                     @Html.DisplayNameFor(model => model.Completed)
                 </dt>

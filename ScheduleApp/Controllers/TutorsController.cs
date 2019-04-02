@@ -15,9 +15,17 @@ namespace ScheduleApp.Controllers
         private ScheduleAppContext db = new ScheduleAppContext();
 
         // GET: Tutors
+        [Authorize]
         public ActionResult Index()
         {
-            return View(db.Tutors.ToList());
+            var qry = (from ses in db.Admins
+                       where ses.Email == User.Identity.Name
+                       select ses).ToList();
+            if (qry.Any())
+            {
+                return View(db.Tutors.ToList());
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Tutors/Details/5
@@ -36,10 +44,17 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Tutors/Create
-        //[Authorize]
+        [Authorize]
         public ActionResult Create()
         {
-            return View();
+            var qry = (from ses in db.Admins
+                       where ses.Email == User.Identity.Name
+                       select ses).ToList();
+            if (qry.Any())
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Tutors/Create
@@ -47,7 +62,6 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize]
         public ActionResult Create([Bind(Include = "Id,Email,Tutor_Name")] Tutor tutor)
         {
             if (ModelState.IsValid)
@@ -61,7 +75,6 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Tutors/Edit/5
-        //[Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,7 +94,6 @@ namespace ScheduleApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize]
         public ActionResult Edit([Bind(Include = "Id,Email,Tutor_Name")] Tutor tutor)
         {
             if (ModelState.IsValid)
@@ -94,7 +106,6 @@ namespace ScheduleApp.Controllers
         }
 
         // GET: Tutors/Delete/5
-        //[Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,7 +121,6 @@ namespace ScheduleApp.Controllers
         }
 
         // POST: Tutors/Delete/5
-        //[Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
