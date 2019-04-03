@@ -1,7 +1,6 @@
--set up roles (user and admin, tutor can be retrieved from the model)
--The student will receive a notification through email if their time has changed
--add validation 
--navigation
-
-Low
--remove availables
+- graphics/ ui
+-load dummy data
+-tutor availability when signing up
+-tutors see schedules 
+-validate sessions match tutor availability 
+-mobile
