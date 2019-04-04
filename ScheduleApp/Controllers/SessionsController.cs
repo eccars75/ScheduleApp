@@ -220,9 +220,6 @@ namespace ScheduleApp.Controllers
             return RedirectToAction("TutorsUpcoming");
         }
 
-        public ActionResult Download ()
-        { return View(); }
-
         //download csv for sessions model
         public FileContentResult DownloadSessionsCSV()
         {
