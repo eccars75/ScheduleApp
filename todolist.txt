@@ -4,4 +4,3 @@
 -tutors see schedules 
 -validate sessions match tutor availability 
 -mobile
--remove download page in sessions, remove function
