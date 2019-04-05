@@ -256,7 +256,6 @@ namespace ScheduleApp.Controllers
                         //Password = WebConfigurationManager.AppSettings["your password goes here"]
                     };
 
-                    //smtp.UseDefaultCredentials = false;
                     smtp.Credentials = credential;
                     smtp.Host = "smtp.gmail.com";
                     smtp.Port = 587;
