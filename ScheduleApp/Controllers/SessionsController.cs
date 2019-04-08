@@ -171,14 +171,15 @@ namespace ScheduleApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignUp([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
-            bool withinSchedule = false; 
+            bool withinSchedule = false;
 
             var SesQry = (from ses in db.Sessions
                        select ses).ToList();
 
-            var TutSchedQry = (from ses in db.TutorSchedules
-                               where session.Start_Date.DayOfWeek == ses.StartTime.DayOfWeek
-                               select ses).ToList();
+
+            //var TutSchedQry = (from ses in db.TutorSchedules
+            //                   where db.Subjects.Find(session.Subject_Id).Tutor.Email == ses.Tutor.Email
+            //                   select ses).ToList();
 
             ////within tutors schedule
             //foreach (var item in TutSchedQry)
@@ -234,7 +235,7 @@ namespace ScheduleApp.Controllers
         public ActionResult TutorsUpcoming()
         {
             var qry = (from ses in db.Sessions
-                       where ses.Subjects.Tutor.Email.ToString() == User.Identity.Name && ses.Completed == false
+                       where ses.Subjects.Tutor.Email == User.Identity.Name && ses.Completed == false
                        select ses).ToList();
             ViewBag.Subject_Id = new SelectList(qry, "Id", "Subject");
             return View(qry);
