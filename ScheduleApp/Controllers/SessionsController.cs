@@ -55,6 +55,7 @@ namespace ScheduleApp.Controllers
             var qry = (from ses in db.Admins
                        where ses.Email == User.Identity.Name
                        select ses).ToList();
+
             if (qry.Any())
             {
                 ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject");
@@ -137,7 +138,7 @@ namespace ScheduleApp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Session session = db.Sessions.Find(id);
-            if (whoDelete == 'u')
+            if (whoDelete != 'u')
             {
                 SendEmail(session); 
             }
@@ -170,6 +171,42 @@ namespace ScheduleApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignUp([Bind(Include = "Id,Student_Name,Subject_Id,Start_Date,End_Date,Completed,NoShow,Rating")] Session session)
         {
+            bool withinSchedule = false; 
+
+            var SesQry = (from ses in db.Sessions
+                       select ses).ToList();
+
+            var TutSchedQry = (from ses in db.TutorSchedules
+                               where session.Start_Date.DayOfWeek == ses.StartTime.DayOfWeek
+                               select ses).ToList();
+
+            ////within tutors schedule
+            //foreach (var item in TutSchedQry)
+            //{
+            //    if (session.Start_Date.Hour >= item.StartTime.Hour && session.Start_Date.Hour <= item.EndTime.Hour)
+            //    {
+            //        withinSchedule = true;
+            //    } 
+            //}
+
+            //if (!withinSchedule)
+            //{
+            //    ModelState.AddModelError("Start_Date", "Not within tutor's schedule");
+            //    ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
+            //    return View(session);
+            //}
+
+            //foreach (var item in SesQry)
+            //{
+            //    // if time is taken
+            //    if (session.Start_Date == item.Start_Date && session.Subject_Id == item.Subject_Id)
+            //    {
+            //        ModelState.AddModelError("Start_Date", "Time is Unvailable");
+            //        ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
+            //        return View(session);
+            //    }
+            //}
+
             if (ModelState.IsValid)
             {
                 session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
