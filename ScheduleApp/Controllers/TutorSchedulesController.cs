@@ -128,5 +128,13 @@ namespace ScheduleApp.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult TutorView()
+        {
+            var qry = (from ses in db.TutorSchedules
+                       where ses.Tutor.Email == User.Identity.Name
+                       select ses).ToList();
+            return View(qry);
+        }
     }
 }

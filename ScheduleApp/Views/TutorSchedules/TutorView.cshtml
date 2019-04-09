@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ScheduleApp.Models.TutorSchedule>
+
+@{
+    ViewBag.Title = "TutorView";
+}
+
+<h2>TutorView</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+    </tr>
+}
+
+</table>

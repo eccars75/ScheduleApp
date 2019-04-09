@@ -11,6 +11,7 @@ namespace ScheduleApp.Models
     {
         public int Id { get; set; }
 
+        [EmailAddress]
         public string Email { get; set; }
         [Display(Name = "Admin's Name")]
         public string Admin_Name { get; set; }

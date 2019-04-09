@@ -77,7 +77,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-default" onclick="location.href='@Url.Action("DeleteConfirmed", "Session",new { Model.Id, ViewBag.WhoDeleted})'"/> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

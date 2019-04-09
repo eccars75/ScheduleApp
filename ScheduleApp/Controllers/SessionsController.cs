@@ -15,7 +15,7 @@ namespace ScheduleApp.Controllers
     public class SessionsController : Controller
     {
         private ScheduleAppContext db = new ScheduleAppContext();
-        private char whoDelete = 'a';
+        private char whoDelete;
 
         // GET: Sessions
         [Authorize]
@@ -135,8 +135,9 @@ namespace ScheduleApp.Controllers
         // POST: Sessions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, char whoDel)
         {
+            whoDelete = whoDel;
             Session session = db.Sessions.Find(id);
             if (whoDelete != 'u')
             {

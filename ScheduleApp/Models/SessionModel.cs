@@ -34,23 +34,17 @@ namespace ScheduleApp.Models
         [DataType(DataType.Date)]
         [Display(Name = "Start Time")]
         [MyDate(ErrorMessage ="Please pick a date in the future")]
+        [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Start_Date { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "End Time")]
+        [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}", ApplyFormatInEditMode = true)]
         public DateTime End_Date { get; set; }
         [Display(Name = "Session Complete?")]
         public bool Completed { get; set; }
         [Display(Name = "Is No Show?")]
         public bool NoShow { get; set; }
         public int Rating { get; set; }
-
-
-        //public string Student_Id { get; set; }
-        //[ForeignKey("Student_Id")]
-        //public virtual ApplicationUser Student { get; set; }
-
-        //public string Tutor_Id { get; set; }
-        //[ForeignKey("Tutor_Id")]
-        //public virtual ApplicationUser Tutor { get; set; }
+        
     }
 }
