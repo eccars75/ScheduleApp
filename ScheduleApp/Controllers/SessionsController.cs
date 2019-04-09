@@ -201,7 +201,7 @@ namespace ScheduleApp.Controllers
             //foreach (var item in SesQry)
             //{
             //    // if time is taken
-            //    if (session.Start_Date == item.Start_Date && session.Subject_Id == item.Subject_Id)
+            //    if (session.Start_Date == item.Start_Date && session.Subjects.Tutor.Email == item.Subjects.Tutor.Email)
             //    {
             //        ModelState.AddModelError("Start_Date", "Time is Unvailable");
             //        ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
