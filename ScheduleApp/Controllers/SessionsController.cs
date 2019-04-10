@@ -174,12 +174,38 @@ namespace ScheduleApp.Controllers
         {
             bool withinSchedule = false;
 
+            var tempSub = db.Subjects.Find(session.Subject_Id);
+
             var conflicts = (from ses in db.Sessions
                              from sub in db.Subjects
-                             where ses.Start_Date >= session.Start_Date && ses.Start_Date <= session.End_Date && sub.Id ==session.Subject_Id && ses.Subjects.Tutor_Id == sub.Tutor_Id
+                             where sub.Id == session.Subject_Id && ses.Subjects.Tutor_Id == sub.Tutor_Id && 
+                                ses.Start_Date >= session.Start_Date && ses.Start_Date < session.End_Date &&
+                                ses.End_Date > session.Start_Date && ses.End_Date <= session.End_Date
                              select ses).ToList();
-            var SesQry = (from ses in db.Sessions
-                       select ses).ToList();
+
+            var TutorSched = (from ses in db.Sessions
+                                 from tut in db.Subjects
+                                 from time in db.TutorSchedules
+                                 where tut.Id == session.Subject_Id && ses.Subjects.Tutor_Id == time.Tutor_Id &&
+                                    session.Start_Date >= time.StartTime && session.Start_Date < time.EndTime &&
+                                    session.End_Date > time.StartTime && session.End_Date <= time.EndTime
+                                 select ses).ToList();
+
+            if (conflicts.Any())
+            {
+                ModelState.AddModelError("Start_Date", "Time is Unvailable");
+                ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
+                return View(session);
+            }
+
+            if (!TutorSched.Any())
+            {
+                ModelState.AddModelError("Start_Date", "Time is Unvailable");
+                ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
+                return View(session);
+            }
+            //var SesQry = (from ses in db.Sessions
+            //           select ses).ToList();
 
 
             //var TutSchedQry = (from ses in db.TutorSchedules
