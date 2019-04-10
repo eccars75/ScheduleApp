@@ -174,6 +174,10 @@ namespace ScheduleApp.Controllers
         {
             bool withinSchedule = false;
 
+            var conflicts = (from ses in db.Sessions
+                             from sub in db.Subjects
+                             where ses.Start_Date >= session.Start_Date && ses.Start_Date <= session.End_Date && sub.Id ==session.Subject_Id && ses.Subjects.Tutor_Id == sub.Tutor_Id
+                             select ses).ToList();
             var SesQry = (from ses in db.Sessions
                        select ses).ToList();
 
