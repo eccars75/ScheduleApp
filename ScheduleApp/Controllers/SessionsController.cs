@@ -175,6 +175,7 @@ namespace ScheduleApp.Controllers
             bool withinSchedule = false;
 
             var tempSub = db.Subjects.Find(session.Subject_Id);
+            //var temp = (session.Start_Date == tempSub.
 
             var conflicts = (from ses in db.Sessions
                              from sub in db.Subjects
@@ -183,13 +184,13 @@ namespace ScheduleApp.Controllers
                                 ses.End_Date > session.Start_Date && ses.End_Date <= session.End_Date
                              select ses).ToList();
 
-            var TutorSched = (from ses in db.Sessions
-                                 from tut in db.Subjects
-                                 from time in db.TutorSchedules
-                                 where tut.Id == session.Subject_Id && ses.Subjects.Tutor_Id == time.Tutor_Id &&
-                                    session.Start_Date >= time.StartTime && session.Start_Date < time.EndTime &&
-                                    session.End_Date > time.StartTime && session.End_Date <= time.EndTime
-                                 select ses).ToList();
+            //var TutorSched = (from ses in db.Sessions
+            //                     from tut in db.Subjects
+            //                     from time in db.TutorSchedules
+            //                     where tut.Id == session.Subject_Id && ses.Subjects.Tutor_Id == time.Tutor_Id &&
+            //                        session.Start_Date >= time.StartTime && session.Start_Date < time.EndTime &&
+            //                        session.End_Date > time.StartTime && session.End_Date <= time.EndTime
+            //                     select ses).ToList();
 
             if (conflicts.Any())
             {
@@ -198,12 +199,13 @@ namespace ScheduleApp.Controllers
                 return View(session);
             }
 
-            if (!TutorSched.Any())
+            if ()
             {
                 ModelState.AddModelError("Start_Date", "Time is Unvailable");
                 ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
                 return View(session);
             }
+
             //var SesQry = (from ses in db.Sessions
             //           select ses).ToList();
 
@@ -246,6 +248,7 @@ namespace ScheduleApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("SignUp");
             }
+
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return View(session);
         }

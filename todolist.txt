@@ -1,6 +1,5 @@
 - graphics/ ui
 -load dummy data
 -tutor availability when signing up
--tutors see schedules 
 -validate sessions match tutor availability 
 -mobile
