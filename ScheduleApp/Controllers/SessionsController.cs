@@ -162,6 +162,7 @@ namespace ScheduleApp.Controllers
         public ActionResult SignUp()
         {
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "TutorName");
+            ViewBag.TutorList = db.TutorSchedules.ToList();
             return View();
         }
 
@@ -287,8 +288,6 @@ namespace ScheduleApp.Controllers
                     {
                         UserName = "thomasmoretutoring@gmail.com",
                         Password = "!!changeThis!!"
-                        //UserName = WebConfigurationManager.AppSettings["thomasmoretutoring@gmail.com"],
-                        //Password = WebConfigurationManager.AppSettings["your password goes here"]
                     };
 
                     smtp.Credentials = credential;
