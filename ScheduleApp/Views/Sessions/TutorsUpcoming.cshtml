@@ -35,13 +35,13 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderBy(item => item.Start_Date)) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Student_Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Subject_Id)
+            @Html.DisplayFor(modelItem => item.Subjects.Subject)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Start_Date)
@@ -59,7 +59,7 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.ActionLink("Session Completed", "TutorsUpdateSession", new { item.Id, isNoShow = false }, null)
+            @Html.ActionLink("Session Completed", "TutorsUpdateSession", new { item.Id, isNoShow = false }, null) |
             @Html.ActionLink("Person No Showed", "TutorsUpdateSession", new { item.Id, isNoShow = true }, null)
         </td>
     </tr>

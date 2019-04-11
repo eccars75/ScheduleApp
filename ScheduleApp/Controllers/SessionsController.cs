@@ -195,50 +195,13 @@ namespace ScheduleApp.Controllers
             if (conflicts.Any())
             {
                 ModelState.AddModelError("Start_Date", "Time is Unvailable");
-                ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
-                return View(session);
             }
 
-            if ()
-            {
-                ModelState.AddModelError("Start_Date", "Time is Unvailable");
-                ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
-                return View(session);
-            }
-
-            //var SesQry = (from ses in db.Sessions
-            //           select ses).ToList();
-
-
-            //var TutSchedQry = (from ses in db.TutorSchedules
-            //                   where db.Subjects.Find(session.Subject_Id).Tutor.Email == ses.Tutor.Email
-            //                   select ses).ToList();
-
-            ////within tutors schedule
-            //foreach (var item in TutSchedQry)
+            //if ()
             //{
-            //    if (session.Start_Date.Hour >= item.StartTime.Hour && session.Start_Date.Hour <= item.EndTime.Hour)
-            //    {
-            //        withinSchedule = true;
-            //    } 
-            //}
-
-            //if (!withinSchedule)
-            //{
-            //    ModelState.AddModelError("Start_Date", "Not within tutor's schedule");
+            //    ModelState.AddModelError("Start_Date", "Time is Unvailable");
             //    ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             //    return View(session);
-            //}
-
-            //foreach (var item in SesQry)
-            //{
-            //    // if time is taken
-            //    if (session.Start_Date == item.Start_Date && session.Subjects.Tutor.Email == item.Subjects.Tutor.Email)
-            //    {
-            //        ModelState.AddModelError("Start_Date", "Time is Unvailable");
-            //        ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
-            //        return View(session);
-            //    }
             //}
 
             if (ModelState.IsValid)
@@ -246,10 +209,10 @@ namespace ScheduleApp.Controllers
                 session.Student_Name = System.Web.HttpContext.Current.User.Identity.Name;
                 db.Sessions.Add(session);
                 db.SaveChanges();
-                return RedirectToAction("SignUp");
+                ViewBag.Message = "Sign Up Successful";
             }
 
-            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
+            ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "TutorName");
             return View(session);
         }
 
