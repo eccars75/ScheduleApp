@@ -21,5 +21,7 @@ namespace ScheduleApp.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dddd, h:mm tt}", ApplyFormatInEditMode = false)]
         public DateTime EndTime { get; set; }
+
+        //future implemnetation subjects
     }
 }

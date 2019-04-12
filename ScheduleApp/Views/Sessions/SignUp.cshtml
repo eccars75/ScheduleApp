@@ -6,65 +6,82 @@
 
 <h2>SignUp</h2>
 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "signup" }))
+{
+    @Html.AntiForgeryToken()
 
-<div class="row">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Session</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-horizontal">
-            <h4>Session</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Subject_Id, "Subject_Id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Subject_Id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Subject_Id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subject_Id, "Subject_Id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Subject_Id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Subject_Id, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+
+    </div>
+}
+
+<ul>
+    @foreach (var tut in ViewBag.TutorList)
+    {
+        <li>@tut.Tutor.Tutor_Name @tut.StartTime.ToString("dddd, h:mm tt") - @tut.EndTime.ToString("h:mm tt")</li>
     }
-<div class="col-md-2">
-    <ul>
-        @foreach (var tut in ViewBag.TutorList)
-        {
-            <li>@tut.Tutor.Tutor_Name @tut.StartTime @tut.EndTime</li>
-        }
-    </ul>
-</div>
-</div>
+</ul>
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<div class="col-md-10">
+<div>
     @ViewBag.Message
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        //$('#signup').validate({
+        //    rules: {
+        //        Start_Date: {
+        //            required: function () {
+        //                //checks if start date is greater than todays date
+        //                return $("#Start_Date").val() >= new Date();
+        //            }
+        //        },
+        //        End_Date: {
+        //            required: function () {
+        //                //checks if end date is greater thena starting date
+        //                return $("#End_Date").val() >= $("#Start_Date").val();
+        //            }
+        //        }
+        //    }
+        //})
+    </script>
 }

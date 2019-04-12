@@ -28,7 +28,7 @@ namespace ScheduleApp.Controllers
             if (qry.Any())
             {
                 var sessions = db.Sessions.Include(s => s.Subjects);
-                return View(sessions.ToList()); 
+                return View(sessions.ToList());
             }
             return RedirectToAction("Index", "Home");
         }
@@ -59,7 +59,7 @@ namespace ScheduleApp.Controllers
             if (qry.Any())
             {
                 ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject");
-                return View(); 
+                return View();
             }
             return RedirectToAction("Index", "Home");
         }
@@ -141,7 +141,7 @@ namespace ScheduleApp.Controllers
             Session session = db.Sessions.Find(id);
             if (whoDelete != 'u')
             {
-                SendEmail(session); 
+                SendEmail(session);
             }
             whoDelete = 'a';
             db.Sessions.Remove(session);
@@ -180,30 +180,50 @@ namespace ScheduleApp.Controllers
 
             var conflicts = (from ses in db.Sessions
                              from sub in db.Subjects
-                             where sub.Id == session.Subject_Id && ses.Subjects.Tutor_Id == sub.Tutor_Id && 
+                             where sub.Id == session.Subject_Id && ses.Subjects.Tutor_Id == sub.Tutor_Id &&
                                 ses.Start_Date >= session.Start_Date && ses.Start_Date < session.End_Date &&
                                 ses.End_Date > session.Start_Date && ses.End_Date <= session.End_Date
                              select ses).ToList();
 
-            //var TutorSched = (from ses in db.Sessions
-            //                     from tut in db.Subjects
-            //                     from time in db.TutorSchedules
-            //                     where tut.Id == session.Subject_Id && ses.Subjects.Tutor_Id == time.Tutor_Id &&
-            //                        session.Start_Date >= time.StartTime && session.Start_Date < time.EndTime &&
-            //                        session.End_Date > time.StartTime && session.End_Date <= time.EndTime
-            //                     select ses).ToList();
+            var TutorSchedul = (from time in db.TutorSchedules
+                                from sub in db.Subjects
+                                where sub.Id == session.Subject_Id && sub.Tutor.Id == time.Tutor.Id
+                                select time).ToList();
 
+            //check 1 time within schedule
+            foreach (var item in TutorSchedul)
+            {
+                if (session.Start_Date.DayOfWeek == item.StartTime.DayOfWeek &&
+                    session.Start_Date.TimeOfDay >= item.StartTime.TimeOfDay && session.Start_Date.TimeOfDay < item.EndTime.TimeOfDay &&
+                    session.End_Date.TimeOfDay > item.StartTime.TimeOfDay && session.End_Date.TimeOfDay <= item.EndTime.TimeOfDay)
+                {
+                    withinSchedule = true;
+                }
+            }
+
+            if (!withinSchedule)
+            {
+                ModelState.AddModelError("Start_Date", "The tutor is not scheduled for this time");
+                ModelState.AddModelError("End_Date", "The tutor is not scheduled for this time");
+            }
+
+            //check 2 time in the future
+            if (session.Start_Date < DateTime.Now)
+            {
+                ModelState.AddModelError("Start_Date", "Enter a Date in the future");
+            }
+
+            //check 3 end date is greater than start date
+            if (session.End_Date < session.Start_Date)
+            {
+                ModelState.AddModelError("End_Date", "Enter a Date in the future");
+            }
+
+            //check 4 any conflicts
             if (conflicts.Any())
             {
                 ModelState.AddModelError("Start_Date", "Time is Unvailable");
             }
-
-            //if ()
-            //{
-            //    ModelState.AddModelError("Start_Date", "Time is Unvailable");
-            //    ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
-            //    return View(session);
-            //}
 
             if (ModelState.IsValid)
             {
@@ -214,6 +234,7 @@ namespace ScheduleApp.Controllers
             }
 
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "TutorName");
+            ViewBag.TutorList = db.TutorSchedules.ToList();
             return View(session);
         }
 
@@ -260,7 +281,7 @@ namespace ScheduleApp.Controllers
         public FileContentResult DownloadSessionsCSV()
         {
             var qry = (from data in db.Sessions
-                      select data).AsEnumerable();
+                       select data).AsEnumerable();
             string csv = string.Concat(
              qry.Select(
                     session => string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}\n", session.Id, session.Student_Name, session.Subjects.Subject, session.Subjects.Tutor.Tutor_Name, session.Start_Date, session.End_Date, session.Completed, session.NoShow, session.Rating)));
@@ -273,12 +294,12 @@ namespace ScheduleApp.Controllers
             try
             {
                 //string emailTo = session.Student_Name;
-                var body = @"I'm sorry but your current appointment scheduled for " + session.Start_Date + " has been cancelled. Please reschedule at website here.<br>Thomas More Tutoring Center";
+                var body = @"DO NOT REPLY<br>I'm sorry but your current appointment scheduled for " + session.Start_Date + " has been cancelled. Please reschedule at website here.<br>Thomas More Tutoring Center";
 
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(session.Student_Name));
                 message.From = new MailAddress("thomasmoretutoring@gmail.com");
-                message.Subject = "Your appointment has been cancelled";
+                message.Subject = "Your appointment has been cancelled -DO NOT REPLY-";
                 message.Body = string.Format(body);
                 message.IsBodyHtml = true;
 
@@ -297,7 +318,7 @@ namespace ScheduleApp.Controllers
                     smtp.Send(message);
                 }
             }
-            catch (Exception e) {}
+            catch (Exception e) { }
         }
     }
 }

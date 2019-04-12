@@ -7,15 +7,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScheduleApp.Models
 {
-    public class MyDateAttribute : ValidationAttribute
-    {
-        public override bool IsValid(object value)
-        {
-            DateTime d = Convert.ToDateTime(value);
-            return d >= DateTime.Now;
-        }
-    }
-
     public class Session
     {
         public int Id { get; set; }
@@ -29,7 +20,6 @@ namespace ScheduleApp.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "Start Time")]
-        [MyDate(ErrorMessage = "Please pick a date in the future")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime Start_Date { get; set; }
         [DataType(DataType.Date)]
