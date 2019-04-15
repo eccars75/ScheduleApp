@@ -6,6 +6,14 @@
 
 <h2>SignUp</h2>
 
+<p>Tutor Availability</p>
+<ul>
+    @foreach (var tut in ViewBag.TutorList)
+    {
+        <li>@tut.Tutor.Tutor_Name @tut.StartTime.ToString("dddd, h:mm tt") - @tut.EndTime.ToString("h:mm tt")</li>
+    }
+</ul>
+
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "signup" }))
 {
     @Html.AntiForgeryToken()
@@ -41,7 +49,7 @@
 
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Sign Up" class="btn btn-default" />
             </div>
         </div>
 
@@ -49,15 +57,8 @@
     </div>
 }
 
-<ul>
-    @foreach (var tut in ViewBag.TutorList)
-    {
-        <li>@tut.Tutor.Tutor_Name @tut.StartTime.ToString("dddd, h:mm tt") - @tut.EndTime.ToString("h:mm tt")</li>
-    }
-</ul>
-
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Return Home", "Index", "Home")
 </div>
 
 <div>
@@ -66,22 +67,4 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        //$('#signup').validate({
-        //    rules: {
-        //        Start_Date: {
-        //            required: function () {
-        //                //checks if start date is greater than todays date
-        //                return $("#Start_Date").val() >= new Date();
-        //            }
-        //        },
-        //        End_Date: {
-        //            required: function () {
-        //                //checks if end date is greater thena starting date
-        //                return $("#End_Date").val() >= $("#Start_Date").val();
-        //            }
-        //        }
-        //    }
-        //})
-    </script>
 }
