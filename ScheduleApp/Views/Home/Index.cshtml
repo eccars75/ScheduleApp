@@ -4,8 +4,8 @@
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Sign Up for Appointment", "SignUp", "Sessions")<br />
-        @Html.ActionLink("Check Current Appointments", "UsersUpcoming", "Sessions")
+        @Html.ActionLink("Sign Up for Appointment", "SignUp", "Sessions", htmlAttributes: new { @class = "col-md-2" })<br />
+        @Html.ActionLink("Check Current Appointments", "UsersUpcoming", "Sessions", htmlAttributes: new { @class = "col-md-2" })
     </div>
 </div>
 
@@ -14,9 +14,9 @@
     {
         <div class="row">
             <div class="col-md-12">
-                <p>For Tutors</p>
-                @Html.ActionLink("Check Upcoming Tutoring Sessions", "TutorsUpcoming", "Sessions") <br />
-                @Html.ActionLink("Check Work Schedule", "TutorView", "TutorSchedules")
+                <p>For Tutors</p> <br />
+                @Html.ActionLink("Check Upcoming Tutoring Sessions", "TutorsUpcoming", "Sessions", htmlAttributes: new { @class = "col-md-2" }) <br />
+                @Html.ActionLink("Check Work Schedule", "TutorView", "TutorSchedules", htmlAttributes: new { @class = "col-md-2" })
             </div>
         </div>
     }

@@ -208,13 +208,13 @@ namespace ScheduleApp.Controllers
             }
 
             //check 2 time in the future
-            if (session.Start_Date > DateTime.Now && ModelState.IsValid)
+            if (session.Start_Date < DateTime.Now && ModelState.IsValid)
             {
                 ModelState.AddModelError("Start_Date", "Enter a Date in the future");
             }
 
             //check 3 end date is greater than start date
-            if (session.End_Date > session.Start_Date && ModelState.IsValid)
+            if (session.End_Date < session.Start_Date && ModelState.IsValid)
             {
                 ModelState.AddModelError("End_Date", "Enter a Date in the future");
             }
