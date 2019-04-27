@@ -243,7 +243,7 @@ namespace ScheduleApp.Controllers
         public ActionResult UsersUpcoming()
         {
             var qry = (from ses in db.Sessions
-                       where ses.Student_Name == User.Identity.Name && ses.Completed == false
+                       where ses.Student_Name == User.Identity.Name && ses.Completed == false && ses.Start_Date > DateTime.Now
                        select ses).ToList();
             ViewBag.Subject_Id = new SelectList(qry, "Id", "Subject");
             return View(qry);
@@ -263,15 +263,16 @@ namespace ScheduleApp.Controllers
         //update session
         public ActionResult TutorsUpdateSession(int id, bool isNoShow)
         {
+            //more logic should have been placed here :(
             ScheduleApp.Models.Session session = db.Sessions.Find(id);
             if (session != null)
             {
                 session.NoShow = isNoShow;
                 session.Completed = true;
+                // if noshow then dont change endtime or change end time if no shows during appointment
                 session.End_Date = DateTime.Now;
                 db.Entry(session).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("TutorsUpcoming");
             }
             ViewBag.Subject_Id = new SelectList(db.Subjects, "Id", "Subject", session.Subject_Id);
             return RedirectToAction("TutorsUpcoming");

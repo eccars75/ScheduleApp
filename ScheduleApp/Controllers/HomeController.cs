@@ -13,24 +13,25 @@ namespace ScheduleApp.Controllers
 
         public ActionResult Index()
         {
+            //checks if anyone is logged in
             try
             {
-                var qry = (from ses in db.Tutors
-                           where ses.Email == User.Identity.Name
-                           select ses).ToList();
+                var tutQry = (from tut in db.Tutors
+                           where tut.Email == User.Identity.Name 
+                           select tut).ToList();
 
-                if (qry.Any())
+                if (tutQry.Any())
                 {
-                    ViewBag.IsTutor = true;
+                    ViewBag.IsUser = false;
                 }
                 else
                 {
-                    ViewBag.IsTutor = false;
+                    ViewBag.IsUser = true;
                 }
             }
             catch (Exception e)
             {
-                ViewBag.IsTutor = false;
+                ViewBag.IsUser = true;
             }
 
             return View();

@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<br /><br />
 <div class="row">
     <div class="col-md-12">
         @Html.ActionLink("Sign Up for Appointment", "SignUp", "Sessions", null, htmlAttributes: new { @class = "btn btn-lg btn-block btn-link" })<br />
@@ -9,11 +10,12 @@
 </div>
 
 @{
-    if (ViewBag.IsTutor == true)
+    if (ViewBag.IsUser == false)
     {
+        <br />
         <div class="row">
             <div class="col-md-12">
-                <p style="text-align:center">For Tutors</p> <br />
+                <p style="text-align:center; font-size:large">For Tutors</p> <br />
                 @Html.ActionLink("Check Upcoming Tutoring Sessions", "TutorsUpcoming", "Sessions",null, htmlAttributes: new { @class = "btn btn-lg btn-block btn-link" }) <br />
                 @Html.ActionLink("Check Work Schedule", "TutorView", "TutorSchedules", null, htmlAttributes: new { @class = "btn btn-lg btn-block btn-link" })
             </div>
