@@ -23,15 +23,6 @@
         <th>
             @Html.DisplayNameFor(model => model.End_Date)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Completed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NoShow)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rating)
-        </th>
         <th></th>
     </tr>
 
@@ -50,19 +41,9 @@
             @Html.DisplayFor(modelItem => item.End_Date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Completed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoShow)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
             @Html.ActionLink("Session Completed", "TutorsUpdateSession", new { item.Id, isNoShow = false }, null) |
             @Html.ActionLink("Person No Showed", "TutorsUpdateSession", new { item.Id, isNoShow = true }, null)
         </td>
     </tr>
 }
-
 </table>
